@@ -1,17 +1,18 @@
 using System;
+using System.Collections.Generic;
 
 namespace OOPBattleship
 {
-    public class Ship: Square
+    public class Ship
     {
-        public Ship(Tuple<int,int> coordinates, SquareStatus status): base(coordinates, status)
+        public readonly List<Square> squaresPosition = new List<Square>();
+        public Ship(List<Square> shipPositions)
         {
-
+            foreach (Square square in shipPositions)
+            {
+                squaresPosition.Add(square);
+            }
         }
 
-        public Ship(Tuple<int, int>[,] coordinatesArray, SquareStatus status): base(coordinatesArray, status)
-        {
-
-        }
     }
 }
