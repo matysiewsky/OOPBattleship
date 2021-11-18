@@ -6,17 +6,17 @@ namespace OOPBattleship
     {
         protected Tuple<int, int> positionCoordinates;
 
-        public SquareStatus status;
+        public SquareStatus Status { get; set; }
 
         public Tuple<int, int> Position { get; }
 
         public Square(Tuple<int, int> coordinates, SquareStatus status)
         {
             Position = coordinates;
-            this.status = status;
+            this.Status = status;
         }
 
-        public string GetCharacter() => status switch
+        public string GetCharacter() => Status switch
         {
             SquareStatus.Empty => "X",
             SquareStatus.Ship => "Ship",
@@ -24,7 +24,7 @@ namespace OOPBattleship
             SquareStatus.Missed => "Miss"
         };
 
-        public override string ToString() => status switch
+        public override string ToString() => Status switch
         {
             SquareStatus.Empty => "",
             SquareStatus.Ship => "",
