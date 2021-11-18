@@ -16,14 +16,6 @@ namespace OOPBattleship
             this.status = status;
         }
 
-        public Square BigShip(Tuple<int, int>[,] coordinatesArray, SquareStatus status)
-        {
-            // foreach (Tuple<int, int> coordinates in coordinatesArray)
-            // {
-            //     Po
-            // }
-        }
-
         public string GetCharacter() => status switch
         {
             SquareStatus.Empty => "X",
