@@ -23,8 +23,8 @@ namespace OOPBattleship
             for (int i= 0; i< board.Length; i ++)
             {
                 for(int j=0; j< board.Length; j++)
-                {
-                    board[i, j] = new Square(i, j);
+                {   
+                    board[i, j] = new Square((int i, int j), SquareStatus.Empty);
                 }
             }
             return board;
