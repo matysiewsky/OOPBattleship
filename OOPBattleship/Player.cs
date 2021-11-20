@@ -5,8 +5,8 @@ namespace OOPBattleship
 {
     public class Player
     {
-        public readonly string name;
-        private List<Ship> _fleet = new List<Ship>();
+        public readonly string Name;
+        private List<Ship> _fleet;
 
         public Ship AddAShipToFleet
         {
@@ -36,7 +36,8 @@ namespace OOPBattleship
         }
         public Player(string playerName, List<Ship> listOfShips)
         {
-            name = playerName;
+            Name = playerName;
+            _fleet = listOfShips;
         }
 
         public bool ShotHandler(Tuple<int, int> enemysTarget)
