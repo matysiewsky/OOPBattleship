@@ -25,22 +25,16 @@ namespace OOPBattleship
             
             for (int i = 0; i < shipLength; i++)
             {   
-                if (shipLength == 0)
+                
+                if (shipInfo["position"] == "horizontal")
                 {
-                position = new Tuple<int, int>(x, y);
-                } 
-                else 
-                {
-                    if (shipInfo["position"] == "horizontal")
-                    {
-                    position = new Tuple<int, int>(x, y+i);
-                    }
-                    else if (shipInfo["position"] == "vertical")
-                    {
-                    position = new Tuple<int, int>(x, y+i);
-                    }
+                position = new Tuple<int, int>(x, y+i);
                 }
-                         
+                else if (shipInfo["position"] == "vertical")
+                {
+                position = new Tuple<int, int>(x, y+i);
+                }
+                     
                 Square shipSquare = new Square(position, SquareStatus.Ship);
                 shipSquares.Add(shipSquare);
             }
