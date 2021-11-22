@@ -5,51 +5,65 @@ namespace OOPBattleship
     public class BoardFactory : Board
     {
         public List<string> takenSpots;
+
+        // only for testing (to be deleted)
         Dictionary<string, string> shipInfo = new Dictionary<string, string>();
+
         public void RandomPlacement()
         {
             
         }
 
-        public void ManualPlacement(Dictionary<string, string> shipInfo)
+        public bool ManualPlacement(Dictionary<string, string> shipInfo, Player player)
         {
-            if (shipInfo["shipLength"] == "1")
-            {
+            int x = Int16.Parse(shipInfo["x"]);
+            int y = Int16.Parse(shipInfo["y"]);
+            int shipLength = Int16.Parse(shipInfo["shipLength"]);
+            List<Square> shipSquares;
+            Tuple<int, int> position
 
+            
+            for (int i = 0; i < shipLength; i++)
+            {   
+                if (shipLength == 0)
+                {
+                position = new Tuple<int, int>(x, y);
+                } 
+                else 
+                {
+                    if (shipInfo["position"] == "horizontal")
+                    {
+                    position = new Tuple<int, int>(x, y+i);
+                    }
+                    else if (shipInfo["position"] == "vertical")
+                    {
+                    position = new Tuple<int, int>(x, y+i);
+                    }
+                }
+                         
+                Square shipSquare = new Square(position, SquareStatus.Ship);
+                shipSquares.Add(shipSquare);
+            }
+            Ship ship = new Ship(shipSquares);
+            // if placement is possible
+            bool isPlacementOk = PlacementValidation(player, ship);
+
+            if (isPlacementOk)
+            {
+                player.AddAShipToFleet(ship);
+                return true;
             }
             else
             {
-                if (shipInfo["position"] == "horizontal")
-                {
-                    if (shipInfo["shipLength"] == "2")
-                    {
-
-                    }
-                    else if (shipInfo["shipLength"] == "3")
-                    {
-
-                    } 
-
-                }
-                else if (shipInfo["position"] == "vertical")
-                {
-                    if (shipInfo["shipLength"] == "2")
-                    {
-
-                    }
-                    else if (shipInfo["shipLength"] == "3")
-                    {
-
-                    } 
-                }
+                return false;
             }
-            private void lookForAdherentCells(int x, int y)
+
+
+        }
+            /*private void lookForNeighborCells(int x, int y)
             {
 
-            }
-
-            
+            }*/        
                
-        }
     }
 }
