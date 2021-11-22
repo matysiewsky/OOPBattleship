@@ -6,24 +6,28 @@ namespace OOPBattleship
     public class Player
     {
         public readonly string Name;
-        private List<Ship> _fleet;
+
+        private List<Ship> Fleet
+        {
+            get;
+        }
 
         public Ship AddAShipToFleet
         {
-            set => _fleet.Add(value);
+            set => Fleet.Add(value);
         }
 
         public Ship RemoveAShipFromFleet
         {
-            set => _fleet.Remove(value);
+            set => Fleet.Remove(value);
         }
         public bool IsPlayerAlive
         {
             get
             {
-                foreach (Ship ship in _fleet)
+                foreach (Ship ship in Fleet)
                 {
-                    foreach (Square square in ship.squaresPosition)
+                    foreach (Square square in ship.SquaresPosition)
                     {
                         if (square.Status == SquareStatus.Ship)
                         {
@@ -37,14 +41,14 @@ namespace OOPBattleship
         public Player(string playerName, List<Ship> listOfShips)
         {
             Name = playerName;
-            _fleet = listOfShips;
+            Fleet = listOfShips;
         }
 
         public bool ShotHandler(Tuple<int, int> enemysTarget)
         {
-            foreach (Ship ship in _fleet)
+            foreach (Ship ship in Fleet)
             {
-                foreach (Square square in ship.squaresPosition)
+                foreach (Square square in ship.SquaresPosition)
                 {
                     if ((enemysTarget.Item1, enemysTarget.Item2) != (square.Position.Item1, square.Position.Item2)) continue;
 
