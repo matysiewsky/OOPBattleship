@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
+using static OOPBattleship.ShipInfo;
 
 namespace OOPBattleship
 {
     public class Ship
     {
-        public readonly List<Square> squaresPosition = new List<Square>();
-        public Ship(List<Square> shipPositions)
+        public readonly List<Square> SquaresPosition;
+        public readonly ShipType Type;
+        public int Size;
+
+        public Ship(List<Square> shipPositions, ShipType type)
         {
-            foreach (Square square in shipPositions)
-            {
-                squaresPosition.Add(square);
-            }
+            SquaresPosition = shipPositions;
+            Type = type;
+            Size = ShipsSizes[type];
         }
 
     }
+
+
 }
