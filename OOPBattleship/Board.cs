@@ -6,7 +6,6 @@ namespace OOPBattleship
     {
         public Square[,] ocean;
         private bool _isPlacementOk;
-        private char[] alpha = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
         bool IsPlacementOk 
         { 
@@ -33,23 +32,6 @@ namespace OOPBattleship
             return board;
         }
 
-        protected bool PlacementValidation(Player player, Ship ship)
-        {
-            // placement is possible if:
-            // all squares of ship are not in player's fleet already
-            // any square touch another square
-            foreach (Square square in ship.squaresPosition)
-            {
-                foreach(Ship ship in player.fleet)
-                {
-                    if (ship.Contains(square))
-                    {
-                        return false
-                    }
-                }
-            }
-            return true;
-        }
         
     }
 }
