@@ -44,7 +44,7 @@ namespace OOPBattleship
                 {
                     if (ship.Contains(square))
                     {
-                        return false
+                        return false;
                     }
                 }
             }

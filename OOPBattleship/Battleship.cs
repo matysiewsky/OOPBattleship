@@ -21,7 +21,7 @@ namespace OOPBattleship
                 display.ShowRules();
                 display.ShowBoard();
                 display.DisplayHighscore();
-                if (chosenOption == "3")
+                if (chosenOption == "4")
                 {
                     break;
                 }
