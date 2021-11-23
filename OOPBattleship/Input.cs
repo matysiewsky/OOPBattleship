@@ -13,15 +13,5 @@ namespace OOPBattleship
             return (list.Contains(number)) ? number : ChooseMenuOption();
         }
 
-        public string ShipPosition()
-        {
-            string position = Console.ReadLine();
-            return position;
-        }
-        // from A1 -> ("0","0")
-        private Tuple<string, string> CoordinateConversion()
-        {
-
-        }
     }
 }

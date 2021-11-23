@@ -9,18 +9,19 @@ namespace OOPBattleship
 
         // only for testing (to be deleted)
         Dictionary<string, string> shipInfo = new Dictionary<string, string>();
+        public List<Ship> ships { get; private set;}
 
         //public void RandomPlacement()
         //{
         //    
         //}
 
-        public bool ManualPlacement(Dictionary<string, string> info, Player player, ShipType shiptype)
+        public bool ManualPlacement(Dictionary<string, string> info, Player player, ShipInfo.ShipType shiptype)
         {
             int x = Int32.Parse(info["x"]);
             int y = Int32.Parse(info["y"]);
             int shipLength = ShipInfo.ShipsSizes[shiptype];
-            List<Square> shipSquares;
+            List<Square> shipSquares = new List<Square>();
             Tuple<int, int> position;
 
             
@@ -31,7 +32,7 @@ namespace OOPBattleship
                 {
                 position = new Tuple<int, int>(x, y+i);
                 }
-                else if (shipInfo["position"] == "vertical")
+                else 
                 {
                 position = new Tuple<int, int>(x, y+i);
                 }
@@ -41,11 +42,11 @@ namespace OOPBattleship
             }
             Ship ship = new Ship(shipSquares, shiptype);
             // if placement is possible
-            bool isPlacementOk = PlacementValidation(player, ship);
+            bool isPlacementOk = PlacementValidation(ships, ship);
 
             if (isPlacementOk)
             {
-                player.AddAShipToFleet(ship);
+                ships.Add(ship);
                 return true;
             }
             else
@@ -53,19 +54,19 @@ namespace OOPBattleship
                 return false;
             }
 
-
+            
         }
 
-        public bool PlacementValidation(Player player, Ship ship)
+        public bool PlacementValidation(List<Ship> ships, Ship ship)
         {
             // placement is possible if:
             // all squares of ship are not in player's fleet already
             // any square touch another square
             foreach (Square square in ship.SquaresPosition)
             {
-                foreach(Ship ship in player.fleet)
+                foreach(Ship fleetShip in ships)
                 {
-                    if (ship.Contains(square))
+                    if (fleetShip.SquaresPosition.Contains(square))
                     {
                         return false;
                     }

@@ -24,14 +24,5 @@ namespace OOPBattleship
             Console.WriteLine("");
         }
 
-        public void shipPlacement(ShipType)
-        {
-            Console.WriteLine($"You are placing {ShipType}");
-            Console.WriteLine("Press v - for vartical or h - for horizontal");
-            string position = ShipPosition();
-            Console.WriteLine("Choose first coordinate eg. A1");
-            Tuple<string, string> firstCoordinate = CoordinateConversion();
-
-        }
     }
 }
