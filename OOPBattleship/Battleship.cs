@@ -5,6 +5,8 @@ namespace OOPBattleship
         private bool isGameRunning;
         private Display display;
         private Input input;
+        public static int FirstPlayerHighscore { get; set; }
+        public static int SecondPlayerHighscore { get; set; }
 
         public Battleship()
         {

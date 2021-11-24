@@ -7,15 +7,18 @@ namespace OOPBattleship
     public class Input
     {
         private Display display;
-        private char[] _alpha = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-        readonly List<string> _list = new() { "1", "2", "3", "4" };
+        private char[] _alphabetList = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        readonly List<string> _menuOptionsList = new() { "1", "2", "3", "4" };
+        readonly List<string> _horizontalOrVerticalShipPlacement = new() { "h", "v", "horizontal", "vertical" };
+        readonly List<string> _randomOrManualShipPlacement = new() { "random", "manual" };
+        
 
         public string ChooseMenuOption()
         {
             while (true)
             {
                 string number = Console.ReadLine();
-                if (_list.Contains(number))
+                if (_menuOptionsList.Contains(number))
                 {
                     return number;
                 }
@@ -27,22 +30,22 @@ namespace OOPBattleship
         {
             while (true)
             {
-                char input = Convert.ToChar(Console.ReadLine()); //Coalesce with fallback value?
-                if (Char.ToLower(input) == 'v' || char.ToLower(input) == 'h')
-                { //Char czy char?
-                    return Convert.ToString(input);
+                string input = Console.ReadLine();
+                if (_horizontalOrVerticalShipPlacement.Contains(input.ToLower()))
+                {
+                    return input;
                 }
-                
                 display.DisplayInfoAboutWrongInput();
             }
         }
+
 
         public string ChooseTypeOfShipPlacement()
         {
             while (true)
             {
                 string input = Console.ReadLine();
-                if (input.ToLower() == "manual" || input.ToLower() == "random")
+                if (_randomOrManualShipPlacement.Contains(input.ToLower()))
                 {
                     return input;
                 }
@@ -50,27 +53,21 @@ namespace OOPBattleship
                 
             }
         }
-        
-        
-        public Tuple<string,string> ShipPosition()
+
+        public Tuple<string,string> GetShipPosition()
         {
-            
             while (true)
             {
                 string position = Console.ReadLine();
-                if (Regex.IsMatch(position, @"^[a-zA-Z0-9]+$") && position.Length is 2 or 3)
+                if (Regex.IsMatch(position, @"^[a-jA-J0-9]+$") && position.Length is 2 or 3)
                 {
                     string firstCoordinate = position.Substring(0, 1);
-                    string secondCoordinate = null;
-                    if (position.Length == 2)
+                    string secondCoordinate = position.Length switch
                     {
-                        secondCoordinate = position.Substring(1, 1);
-                    }
-                    else if (position.Length == 3)
-                    {
-                        secondCoordinate = position.Substring(1, 2);
-                        
-                    }
+                        2 => position.Substring(1, 1),
+                        3 => position.Substring(1, 2),
+                        _ => null
+                    };
                     Tuple<string, string> tupleWithCoordinates = Tuple.Create(firstCoordinate, secondCoordinate);
                     return tupleWithCoordinates;
                 }
@@ -79,13 +76,6 @@ namespace OOPBattleship
 
             }
         }
-        // from A1 -> ("0","0")
-        public Tuple<int, int> CoordinateConversion(Tuple<string, string> position)
-        {
-            var firstParameter = Convert.ToChar(position.Item1);
-            var firstParameterAsDigit = firstParameter % 32;
-            var secondParameterAsDigit = Convert.ToInt32(position.Item2);
-            return new Tuple<int, int>(firstParameterAsDigit, secondParameterAsDigit);
-        }
+        
     }
 }

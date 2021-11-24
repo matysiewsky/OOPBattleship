@@ -5,19 +5,6 @@ namespace OOPBattleship
     
     public class Display
     {
-        private Input input;
-        public int player1
-        {
-            get { return player1 = 0; } 
-            set { player1 = value; } 
-        }
-        
-        public int player2
-        {
-            get { return player2 = 0; } 
-            set { player2 = value; } 
-        }
-        
         public void ShowMenu()
         {
             Console.WriteLine(@"Welcome to BattleShip game.
@@ -63,37 +50,46 @@ namespace OOPBattleship
         {
             Console.WriteLine($@"HIGHSCORE
 
-            Player 1 = {player1}
-            Player 2 = {player2}");
+            Player 1 = {Battleship.FirstPlayerHighscore}
+            Player 2 = {Battleship.SecondPlayerHighscore}");
         }
 
         public void AskManualOrRandomShipPlacement()
         {
             Console.WriteLine("Do you want to put your ships manually or randomly? Write random or manual.");
-            input.ChooseTypeOfShipPlacement();
-            // czy robic dziedziczenie czy robic tak jak teraz?
         }
-        
-        
+
         public void DisplayInfoAboutWrongInput()
         {
             Console.WriteLine("Wrong input.");
         }
 
         //TODO metoda wyswietlajaca status Staek trafiony, statek zatonoal itd, w zaleznosci w co zamienil sie dany square? 
+        public void DisplayInfoShipHit()
+        {
+            Console.WriteLine("Enemy ship hit! Continue your attack (it's still your turn)");
+        }
+        public void DisplayInfoShipHitMissed()
+        {
+            Console.WriteLine("You missed.");
+        }
+        public void DisplayInfoShipSinked()
+        {
+            Console.WriteLine("Hit and sink! Continue your attack (it's still your turn)");
+        }
         
         
-        
-        public void shipPlacement(ShipInfo.ShipType shiptype)
+        public void DisplayShipPlacementInfo(ShipInfo.ShipType shiptype)
         {
             Console.WriteLine($"You are placing {shiptype}");
             Console.WriteLine("Press v - for vertical or h - for horizontal");
-            string directionShipPlacement = input.ChooseVerticalOrHorizontal();
+        }
+        
+        
             
+        public void DisplayChoosingCoordinates()
+        {
             Console.WriteLine("Choose first coordinate eg. A1");
-            Tuple<string, string> position = input.ShipPosition();
-            Tuple<int, int> firstCoordinate = input.CoordinateConversion(position);
-
         }
     }
 }
