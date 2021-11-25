@@ -6,7 +6,8 @@ namespace OOPBattleship
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Battleship battleship = new();
+            battleship.Run();
         }
     }
 }

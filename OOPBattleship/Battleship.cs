@@ -3,8 +3,8 @@ namespace OOPBattleship
     public class Battleship
     {
         private bool isGameRunning;
-        private Display display;
-        private Input input;
+        private Display display = new();
+        private Input input = new();
         public static int FirstPlayerHighscore { get; set; }
         public static int SecondPlayerHighscore { get; set; }
 
@@ -13,20 +13,32 @@ namespace OOPBattleship
             isGameRunning = true;
         }
 
+
         public void Run()
         {
+
             while (isGameRunning)
             {
                 display.ShowMenu();
                 string chosenOption = input.ChooseMenuOption();
-                // display.ShowOptionABoutBoardSize?
-                display.ShowRules();
-                display.ShowBoard();
-                display.DisplayHighscore();
-                if (chosenOption == "4")
+
+                switch (chosenOption)
                 {
-                    break;
+                    //"1" => funkcja odpalająca grę
+                    case "2":
+                        display.ShowRules();
+                        input.BackToMenu();
+                        // battleship.Run();
+                        break;
+                    case "3":
+                        display.DisplayHighscore();
+                        input.BackToMenu();
+                        break;
+                    case "4":
+                        isGameRunning = false;
+                        break;
                 }
+
             }
         }
 

@@ -7,6 +7,7 @@ namespace OOPBattleship
     {
         public void ShowMenu()
         {
+            Console.Clear();
             Console.WriteLine(@"Welcome to BattleShip game.
             MENU
 
@@ -43,7 +44,10 @@ namespace OOPBattleship
             
             When all of the squares that one your ships occupies have been hit, the ship will be sunk.   
             
-            As soon as all of one player's ships have been sunk, the game ends.");
+            As soon as all of one player's ships have been sunk, the game ends.
+
+            Press 1 to get back to the menu or 2 to start the game!"
+            );
         }
         
         public void DisplayHighscore()

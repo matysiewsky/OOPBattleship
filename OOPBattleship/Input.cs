@@ -11,7 +11,11 @@ namespace OOPBattleship
         readonly List<string> _menuOptionsList = new() { "1", "2", "3", "4" };
         readonly List<string> _horizontalOrVerticalShipPlacement = new() { "h", "v", "horizontal", "vertical" };
         readonly List<string> _randomOrManualShipPlacement = new() { "random", "manual" };
-        
+
+        public void BackToMenu()
+        {
+            var chosenOption = Console.ReadKey();
+        }
 
         public string ChooseMenuOption()
         {
