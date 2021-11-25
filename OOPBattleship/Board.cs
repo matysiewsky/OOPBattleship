@@ -5,22 +5,21 @@ namespace OOPBattleship
     public class Board 
     {
         public Square[,] ocean;
-        private bool _isPlacementOk;
+        public bool isPlacementOk;
+        public int Size { get; private set;}
 
-        bool IsPlacementOk 
-        { 
-            get { return _isPlacementOk; } 
-            set { _isPlacementOk = value; } 
+
+        public Board(int size)
+        {
+            Size = size;
+            ocean = CreateBoard(Size);
+            
         }
 
-        public Board()
+        Square[,] CreateBoard(int size)
         {
-            ocean = CreateBoard();
-        }
-
-        Square[,] CreateBoard()
-        {
-            Square[,] board = new Square[10,10];
+            
+            Square[,] board = new Square[size, size];
             for (int i= 0; i< board.Length; i ++)
             {
                 for(int j=0; j< board.Length; j++)
