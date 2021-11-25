@@ -14,7 +14,7 @@ namespace OOPBattleship
         {
             SquaresPosition = shipPositions;
             Type = type;
-            Size = ShipsSizes[type];
+            Size = (int) type;
         }
 
     }
