@@ -23,7 +23,7 @@ namespace OOPBattleship
             int x = Int32.Parse(info["x"]);
             int y = Int32.Parse(info["y"]);
             string position = shipInfo["position"];
-            int shipLength = ShipInfo.ShipsSizes[shiptype];
+            int shipLength = (int) shiptype;
             List<Square> shipSquares = new List<Square>();
             Tuple<int, int> coordinates;
             
@@ -47,9 +47,9 @@ namespace OOPBattleship
 
             Ship ship = new Ship(shipSquares, shiptype);
             // if placement is possible
-            bool board.isPlacementOk = PlacementValidation(ships, ship, board);
-            return ship
-            
+            board.isPlacementOk = PlacementValidation(ships, ship, board);
+            return ship;
+
         }
 
         private bool PlacementValidation(List<Ship> ships, Ship ship, Board board)
