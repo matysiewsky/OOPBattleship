@@ -24,11 +24,10 @@ namespace OOPBattleship
 
                 switch (chosenOption)
                 {
-                    //"1" => funkcja odpalająca grę
+                    //"1" => Game.Initialize(display)
                     case "2":
                         display.ShowRules();
                         input.BackToMenu();
-                        // battleship.Run();
                         break;
                     case "3":
                         display.DisplayHighscore();
