@@ -106,7 +106,15 @@ namespace OOPBattleship
                     ShipsNeighbors.Add(new Square(neighborPosition, SquareStatus.Empty));
                 }
             }
-        } 
+        }
+        
+        public void PlaceShipOnBoard(Board board, Ship ship)
+        {
+            foreach (Square square in ship.SquaresPosition)
+            {
+                board.ocean[square.Position.Item1, square.Position.Item2] = new Square(square.Position, SquareStatus.Ship);
+            }
+        }
         
                
         
