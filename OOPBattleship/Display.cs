@@ -47,7 +47,7 @@ namespace OOPBattleship
             
             As soon as all of one player's ships have been sunk, the game ends.
 
-            Press 1 to get back to the menu or 2 to start the game!"
+            Press any key to get back to the menu!"
             );
         }
         
@@ -56,7 +56,9 @@ namespace OOPBattleship
             Console.WriteLine($@"HIGHSCORE
 
             Player 1 = {Battleship.FirstPlayerHighscore}
-            Player 2 = {Battleship.SecondPlayerHighscore}");
+            Player 2 = {Battleship.SecondPlayerHighscore}
+
+            Press any key to get back to the menu!");
         }
 
         public void AskManualOrRandomShipPlacement()
@@ -94,7 +96,9 @@ namespace OOPBattleship
             
         public void DisplayChoosingCoordinates()
         {
-            Console.WriteLine("Choose first coordinate eg. A1");
+            Console.WriteLine(@"Choose first coordinate eg. A1
+IMPORTANT - if you chose vertical placement, ship will show up from the chosen coordinate directed to the bottom of the board.
+If you chose horizontal, then from the first coordinate to the right of the board.");
         }
 
 

@@ -109,7 +109,7 @@ namespace OOPBattleship
                     {
 
                         Tuple<int, int> neighborPosition = new Tuple<int, int>(neighbor.Item1 + shipX, neighbor.Item2 + shipY);
-                        // ma zostaæ dodany je¿eli nie jest fragmentem statku oraz nie znajduje siê ju¿ w ShipNeighbors
+                        // ma zostaÄ‡ dodany jeÅ¼eli nie jest fragmentem statku oraz nie znajduje siÄ™ juÅ¼ w ShipNeighbors
                         //if(!ShipsNeighbors.Contains())
                         ShipsNeighbors.Add(new Square(neighborPosition, SquareStatus.Empty));
                     }
