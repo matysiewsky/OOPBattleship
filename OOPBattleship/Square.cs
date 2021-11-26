@@ -22,7 +22,7 @@ namespace OOPBattleship
             SquareStatus.Ship => "🚢",
             SquareStatus.Hit => "🎯",
             SquareStatus.Missed => "⛔",
-            SquareStatus.Neighbor => "~"
+            SquareStatus.Neighbor => "🌊"
         };
 
         // public override string ToString() => Status switch

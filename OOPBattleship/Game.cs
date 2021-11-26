@@ -22,11 +22,13 @@ namespace OOPBattleship
 
         private string placingPhase = "placing";
         private string shootingPhase = "shooting";
+      
+     
         public void Initialize(Display display, Input input, BoardFactory bf)
         {
             board1 = new Board(10);
             board2 = new Board(10);
-
+            
             boards.Add(board1);
             boards.Add(board2);
 
@@ -34,15 +36,14 @@ namespace OOPBattleship
 
             foreach (Board board in boards)
             {
-                foreach(List<Ship> list in shipsList)
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
-
+                    
                     Console.Clear();
                     display.DisplayBoard(board, placingPhase);
                     Console.WriteLine();
                     display.DisplayShipPlacementInfo(shipType.ToString());
-
+                    
 
                     string shipDirection = input.ChooseVerticalOrHorizontal();
                     display.DisplayChoosingCoordinates();
@@ -51,7 +52,7 @@ namespace OOPBattleship
                     bool isPlacementOk = bf.PlacementValidation(newShip, board);
                     if (isPlacementOk)
                     {
-
+                        
                         bf.PlaceShipOnBoard(board, newShip);
                         bf.LookForNeighborCells(board, newShip);
                        
@@ -68,7 +69,7 @@ namespace OOPBattleship
             Player player2 = new("Player 2", shipsPlayer2);
 
             Console.ReadLine();
-            
+
         }
 
         public void Round()
