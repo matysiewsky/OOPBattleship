@@ -9,6 +9,8 @@ namespace OOPBattleship
         public Board board1;
         public Board board2;
         private List<Board> boards = new List<Board>();
+        private string placingPhase = "placing";
+        private string shootingPhase = "shooting";
         public void Initialize(Display display, Input input, BoardFactory bf)
         {
             board1 = new Board(10);
@@ -24,7 +26,7 @@ namespace OOPBattleship
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
                     Console.Clear();
-                    display.DisplayBoard(board);
+                    display.DisplayBoard(board, placingPhase);
                     Console.WriteLine();
                     display.DisplayShipPlacementInfo(shipType.ToString());
                     string shipDirection = input.ChooseVerticalOrHorizontal();

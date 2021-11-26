@@ -5,7 +5,7 @@ namespace OOPBattleship
     
     public class Display
     {
-        private char[] _alphabetList = "   ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        private char[] _alphabetList = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public void ShowMenu()
         {
             Console.Clear();
@@ -98,13 +98,17 @@ namespace OOPBattleship
         }
 
 
-        public void DisplayBoard(Board board)
+        public void DisplayBoard(Board board, string gamephase)
         {
+            // printing alphabetical first row
             for (int x=0; x < board.Size + 3; x++)
             {
-                Console.Write(_alphabetList[x]);
+                string col = " " + _alphabetList[x].ToString() + " ";
+                Console.Write(col);
             }
             Console.WriteLine();
+
+
             for (int i=0; i< board.Size; i++)
             {
                 int row = i + 1;
@@ -119,7 +123,19 @@ namespace OOPBattleship
                 for (int j=0; j< board.Size; j++)
                 {
                     Square square = board.ocean[i,j];
-                    Console.Write(square.GetCharacter());
+                    if (gamephase == "placing")
+                    {
+                        if (square.Status == SquareStatus.Empty || square.Status == SquareStatus.Ship)
+                        {
+                            Console.Write(square.GetCharacter());
+                        }
+                    }
+                    else if (gamephase == "shooting")
+                    {
+                        Console.Write(square.GetCharacter());
+                    }
+                    
+                    
                 }
                 Console.WriteLine();
             }
