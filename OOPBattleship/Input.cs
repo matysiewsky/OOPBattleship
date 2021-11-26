@@ -60,18 +60,16 @@ namespace OOPBattleship
 
         public Tuple<string,string> GetShipPosition()
         {
+            Regex regex = new Regex(@"^\s*(?<row>[A-J])(?<col>[1-9]|10{1,2})\s*$");
             while (true)
             {
                 string position = Console.ReadLine();
-                if (Regex.IsMatch(position, @"^[a-jA-J0-9]+$") && position.Length is 2 or 3)
+                Match match = regex.Match(position.ToUpper());
+                if (match.Success)
                 {
-                    string firstCoordinate = position.Substring(0, 1);
-                    string secondCoordinate = position.Length switch
-                    {
-                        2 => position.Substring(1, 1),
-                        3 => position.Substring(1, 2),
-                        _ => null
-                    };
+                    string firstCoordinate = match.Groups["row"].Value;
+                    string secondCoordinate = match.Groups["col"].Value;
+                    
                     Tuple<string, string> tupleWithCoordinates = Tuple.Create(firstCoordinate, secondCoordinate);
                     return tupleWithCoordinates;
                 }
