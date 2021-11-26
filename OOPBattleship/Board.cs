@@ -20,9 +20,9 @@ namespace OOPBattleship
         {
             
             Square[,] board = new Square[size, size];
-            for (int i= 0; i< board.Length; i ++)
+            for (int i= 0; i< size; i ++)
             {
-                for(int j=0; j< board.Length; j++)
+                for(int j=0; j< size; j++)
                 {
                     Tuple<int, int> position = new Tuple<int, int>(i, j);
                     board[i, j] = new Square(position, SquareStatus.Empty);

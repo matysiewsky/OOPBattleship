@@ -5,6 +5,7 @@ namespace OOPBattleship
     
     public class Display
     {
+        private char[] _alphabetList = "   ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public void ShowMenu()
         {
             Console.Clear();
@@ -83,7 +84,7 @@ namespace OOPBattleship
         }
         
         
-        public void DisplayShipPlacementInfo(ShipInfo.ShipType shiptype)
+        public void DisplayShipPlacementInfo(string shiptype)
         {
             Console.WriteLine($"You are placing {shiptype}");
             Console.WriteLine("Press v - for vertical or h - for horizontal");
@@ -99,15 +100,30 @@ namespace OOPBattleship
 
         public void DisplayBoard(Board board)
         {
+            for (int x=0; x < board.Size + 3; x++)
+            {
+                Console.Write(_alphabetList[x]);
+            }
+            Console.WriteLine();
             for (int i=0; i< board.Size; i++)
             {
+                int row = i + 1;
+                if (row < 10)
+                {
+                    Console.Write(" " + row.ToString() + " ");
+                }
+                else
+                {
+                    Console.Write(row.ToString() + " ");
+                }
                 for (int j=0; j< board.Size; j++)
                 {
                     Square square = board.ocean[i,j];
                     Console.Write(square.GetCharacter());
                 }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            
         }
     }
 }
