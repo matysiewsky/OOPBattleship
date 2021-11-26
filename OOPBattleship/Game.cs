@@ -42,8 +42,8 @@ namespace OOPBattleship
                     Console.Clear();
                     display.DisplayBoard(board, placingPhase);
                     Console.WriteLine();
-                    display.DisplayShipPlacementInfo(shipType.ToString());
-                    
+                    display.DisplayShipPlacementInfo(shipType.ToString(), (int) shipType);
+
 
                     string shipDirection = input.ChooseVerticalOrHorizontal();
                     display.DisplayChoosingCoordinates();
