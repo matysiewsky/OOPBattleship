@@ -1,12 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace OOPBattleship
 {
     public class Board 
     {
         public Square[,] ocean;
-        public bool isPlacementOk;
+        public bool isPlacementOk = false;
         public int Size { get; private set;}
+        public List<Ship> ships { get; set; } = new();
 
 
         public Board(int size)
