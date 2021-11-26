@@ -125,7 +125,7 @@ namespace OOPBattleship
                     Square square = board.ocean[i,j];
                     if (gamephase == "placing")
                     {
-                        if (square.Status == SquareStatus.Empty || square.Status == SquareStatus.Ship)
+                        if (square.Status == SquareStatus.Empty || square.Status == SquareStatus.Ship || square.Status == SquareStatus.Neighbor)
                         {
                             Console.Write(square.GetCharacter());
                         }

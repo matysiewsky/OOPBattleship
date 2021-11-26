@@ -5,11 +5,7 @@ namespace OOPBattleship
 {
     public class BoardFactory
     {
-        public List<string> takenSpots;
-
-
         
-        public readonly List<Square> ShipsNeighbors = new List<Square>();
         //public void RandomPlacement()
         //{
         //    
@@ -25,7 +21,6 @@ namespace OOPBattleship
             int shipLength = (int) shiptype;
             List<Square> shipSquares = new List<Square>();
             Tuple<int, int> coordinates;
-            board.isPlacementOk = false;
 
 
 
@@ -57,35 +52,23 @@ namespace OOPBattleship
             // placement is possible if:
             // all squares of ship are not in player's fleet already
             // any square touch another square
+            bool isPlacementOk = true;
 
-            foreach (Square square in ship.SquaresPosition)
+            foreach(Square shipSquare in ship.SquaresPosition)
             {
-                if (square.Position.Item1 >= 0 
-                    && square.Position.Item2 >=0 
-                    && !ShipsNeighbors.Contains(square))
+                int shipX = shipSquare.Position.Item1;
+                int shipY = shipSquare.Position.Item2;
+                if (shipX > board.Size - 1 || shipY > board.Size - 1 
+                    || board.ocean[shipX, shipY].Status == SquareStatus.Ship || board.ocean[shipX, shipY].Status == SquareStatus.Neighbor)
                 {
-                    foreach(Ship fleetShip in board.ships)
-                    {
-                        if (fleetShip.SquaresPosition.Contains(square))
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
+                    isPlacementOk = false;
                 }
-                else
-                {
-                    return false;
-                }
-                
             }
-            return true;
+            
+            return isPlacementOk;
         }
 
-        private void lookForNeighborCells(Ship ship, Board board)
+        public void LookForNeighborCells(Board board, Ship ship)
         {
                 
             var neighborsPattern = new List<(int, int)>
@@ -102,16 +85,19 @@ namespace OOPBattleship
 
                 foreach ((int, int) neighbor in neighborsPattern)
                 {
-                    if ((board.Size > shipX + neighbor.Item1
+                    if ((board.Size-1 > shipX + neighbor.Item1
                         && shipX + neighbor.Item1 >= 0)
-                        && (board.Size > shipY + neighbor.Item2
+                        && (board.Size-1 > shipY + neighbor.Item2
                         && shipY + neighbor.Item2 >= 0))
                     {
 
                         Tuple<int, int> neighborPosition = new Tuple<int, int>(neighbor.Item1 + shipX, neighbor.Item2 + shipY);
                         // ma zostaæ dodany je¿eli nie jest fragmentem statku oraz nie znajduje siê ju¿ w ShipNeighbors
-                        //if(!ShipsNeighbors.Contains())
-                        ShipsNeighbors.Add(new Square(neighborPosition, SquareStatus.Empty));
+                        if(board.ocean[neighborPosition.Item1, neighborPosition.Item2].Status == SquareStatus.Empty)
+                        {
+                            board.ocean[neighborPosition.Item1, neighborPosition.Item2].Status = SquareStatus.Neighbor;
+                        }
+                       
                     }
                 }
             }
@@ -125,7 +111,6 @@ namespace OOPBattleship
                 foreach (Square square in ship.SquaresPosition)
                 {
                     board.ocean[square.Position.Item1, square.Position.Item2] = new Square(square.Position, SquareStatus.Ship);
-                    board.ships.Add(ship);
                 }
             }
            

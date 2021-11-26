@@ -21,7 +21,8 @@ namespace OOPBattleship
             SquareStatus.Empty => "~",
             SquareStatus.Ship => "O",
             SquareStatus.Hit => "🎯",
-            SquareStatus.Missed => "⛔"
+            SquareStatus.Missed => "⛔",
+            SquareStatus.Neighbor => "~"
         };
 
         // public override string ToString() => Status switch
@@ -40,6 +41,7 @@ namespace OOPBattleship
         Empty = 0,
         Ship = 1,
         Hit = 2,
-        Missed = 3
+        Missed = 3,
+        Neighbor = 4
     }
 }

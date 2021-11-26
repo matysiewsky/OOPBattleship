@@ -36,17 +36,20 @@ namespace OOPBattleship
                     display.DisplayChoosingCoordinates();
                     Tuple<int, int> shipStartCoordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
                     Ship newShip = bf.ManualPlacement(shipStartCoordinates, shipDirection, shipType, board);
-                    board.isPlacementOk = bf.PlacementValidation(newShip, board);
-                    Console.WriteLine(board.isPlacementOk);
-                    if (board.isPlacementOk)
+                    bool isPlacementOk = bf.PlacementValidation(newShip, board);
+                    if (isPlacementOk)
                     {
                         
                         bf.PlaceShipOnBoard(board, newShip);
+                        bf.LookForNeighborCells(board, newShip);
                        
                     }
+                    Console.Clear();
+                    display.DisplayBoard(board, placingPhase);
 
-                    
                 }
+                
+                Console.ReadLine();
             }
             
             
