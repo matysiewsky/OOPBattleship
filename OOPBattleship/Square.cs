@@ -18,8 +18,8 @@ namespace OOPBattleship
 
         public string GetCharacter() => Status switch
         {
-            SquareStatus.Empty => "~",
-            SquareStatus.Ship => "O",
+            SquareStatus.Empty => "🌊",
+            SquareStatus.Ship => "🚢",
             SquareStatus.Hit => "🎯",
             SquareStatus.Missed => "⛔",
             SquareStatus.Neighbor => "~"
