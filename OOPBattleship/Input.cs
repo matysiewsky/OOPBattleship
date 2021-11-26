@@ -6,7 +6,7 @@ namespace OOPBattleship
 {
     public class Input
     {
-        private Display display;
+        private Display display = new();
         private char[] _alphabetList = " ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         readonly List<string> _menuOptionsList = new() { "1", "2", "3", "4" };
         readonly List<string> _horizontalOrVerticalShipPlacement = new() { "h", "v", "horizontal", "vertical" };

@@ -7,9 +7,8 @@ namespace OOPBattleship
     {
         public List<string> takenSpots;
 
-        // only for testing (to be deleted)
-        Dictionary<string, string> shipInfo = new Dictionary<string, string>();
-        public List<Ship> ships { get; private set; } = new();
+
+        
         public readonly List<Square> ShipsNeighbors = new List<Square>();
         //public void RandomPlacement()
         //{
@@ -20,14 +19,17 @@ namespace OOPBattleship
         // this method returns ship, if board property isPlacementOk is true then it should be added to player's fleet 
         public Ship ManualPlacement(Tuple<int, int> startCoordinates, string direction, ShipInfo.ShipType shiptype, Board board)
         {
+
             int x = startCoordinates.Item1;
             int y = startCoordinates.Item2;
             int shipLength = (int) shiptype;
             List<Square> shipSquares = new List<Square>();
             Tuple<int, int> coordinates;
-            
+            board.isPlacementOk = false;
 
-            
+
+
+
             for (int i = 0; i < shipLength; i++)
             {   
                 
@@ -37,7 +39,7 @@ namespace OOPBattleship
                 }
                 else 
                 {
-                coordinates = new Tuple<int, int>(x-i, y);
+                coordinates = new Tuple<int, int>(x+i, y);
                 }
                      
                 Square shipSquare = new Square(coordinates, SquareStatus.Ship);
@@ -46,12 +48,11 @@ namespace OOPBattleship
 
             Ship ship = new Ship(shipSquares, shiptype);
             // if placement is possible
-            board.isPlacementOk = PlacementValidation(ships, ship, board);
             return ship;
 
         }
 
-        private bool PlacementValidation(List<Ship> ships, Ship ship, Board board)
+        public bool PlacementValidation(Ship ship, Board board)
         {
             // placement is possible if:
             // all squares of ship are not in player's fleet already
@@ -63,11 +64,15 @@ namespace OOPBattleship
                     && square.Position.Item2 >=0 
                     && !ShipsNeighbors.Contains(square))
                 {
-                    foreach(Ship fleetShip in ships)
+                    foreach(Ship fleetShip in board.ships)
                     {
-                    if (fleetShip.SquaresPosition.Contains(square))
+                        if (fleetShip.SquaresPosition.Contains(square))
                         {
                             return false;
+                        }
+                        else
+                        {
+                            return true;
                         }
                     }
                 }
@@ -115,10 +120,15 @@ namespace OOPBattleship
         
         public void PlaceShipOnBoard(Board board, Ship ship)
         {
-            foreach (Square square in ship.SquaresPosition)
+            if (ship != null)
             {
-                board.ocean[square.Position.Item1, square.Position.Item2] = new Square(square.Position, SquareStatus.Ship);
+                foreach (Square square in ship.SquaresPosition)
+                {
+                    board.ocean[square.Position.Item1, square.Position.Item2] = new Square(square.Position, SquareStatus.Ship);
+                    board.ships.Add(ship);
+                }
             }
+           
         }
         
         

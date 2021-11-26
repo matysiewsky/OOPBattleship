@@ -25,15 +25,27 @@ namespace OOPBattleship
             {
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
+                    
                     Console.Clear();
                     display.DisplayBoard(board, placingPhase);
                     Console.WriteLine();
                     display.DisplayShipPlacementInfo(shipType.ToString());
+                    
+
                     string shipDirection = input.ChooseVerticalOrHorizontal();
                     display.DisplayChoosingCoordinates();
                     Tuple<int, int> shipStartCoordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
-                    bf.ManualPlacement(shipStartCoordinates, shipDirection, shipType, board);
+                    Ship newShip = bf.ManualPlacement(shipStartCoordinates, shipDirection, shipType, board);
+                    board.isPlacementOk = bf.PlacementValidation(newShip, board);
+                    Console.WriteLine(board.isPlacementOk);
+                    if (board.isPlacementOk)
+                    {
+                        
+                        bf.PlaceShipOnBoard(board, newShip);
+                       
+                    }
 
+                    
                 }
             }
             
