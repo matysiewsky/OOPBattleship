@@ -9,7 +9,7 @@ namespace OOPBattleship
 
         // only for testing (to be deleted)
         Dictionary<string, string> shipInfo = new Dictionary<string, string>();
-        public List<Ship> ships { get; private set;}
+        public List<Ship> ships { get; private set; } = new();
         public readonly List<Square> ShipsNeighbors = new List<Square>();
         //public void RandomPlacement()
         //{
@@ -18,11 +18,10 @@ namespace OOPBattleship
 
 
         // this method returns ship, if board property isPlacementOk is true then it should be added to player's fleet 
-        public Ship ManualPlacement(Dictionary<string, string> info, Player player, ShipInfo.ShipType shiptype, Board board)
+        public Ship ManualPlacement(Tuple<int, int> startCoordinates, string direction, ShipInfo.ShipType shiptype, Board board)
         {
-            int x = Int32.Parse(info["x"]);
-            int y = Int32.Parse(info["y"]);
-            string position = shipInfo["position"];
+            int x = startCoordinates.Item1;
+            int y = startCoordinates.Item2;
             int shipLength = (int) shiptype;
             List<Square> shipSquares = new List<Square>();
             Tuple<int, int> coordinates;
@@ -32,7 +31,7 @@ namespace OOPBattleship
             for (int i = 0; i < shipLength; i++)
             {   
                 
-                if (position == "horizontal")
+                if (direction == "horizontal" || direction == "h")
                 {
                 coordinates = new Tuple<int, int>(x, y+i);
                 }
@@ -81,7 +80,7 @@ namespace OOPBattleship
             return true;
         }
 
-        private void lookForNeighborCells(Square shipSquare, Board board)
+        private void lookForNeighborCells(Ship ship, Board board)
         {
                 
             var neighborsPattern = new List<(int, int)>
@@ -89,23 +88,29 @@ namespace OOPBattleship
                 (1, 0),
                 (0, -1),
                 (0, 1) };
-                
-            int shipX = shipSquare.Position.Item1;
-            int shipY= shipSquare.Position.Item2;
-
-
-            foreach ((int, int) neighbor in neighborsPattern)
+             
+            foreach (Square shipSquare in ship.SquaresPosition)
             {
-                if ((board.Size > shipX + neighbor.Item1 
-                    && shipX + neighbor.Item1 >= 0)
-                    && (board.Size > shipY + neighbor.Item2 
-                    && shipY + neighbor.Item2 >= 0))
+                int shipX = shipSquare.Position.Item1;
+                int shipY = shipSquare.Position.Item2;
+
+
+                foreach ((int, int) neighbor in neighborsPattern)
                 {
-                        
-                    Tuple<int, int> neighborPosition = new Tuple<int, int>(neighbor.Item1 + shipX, neighbor.Item2 + shipY);
-                    ShipsNeighbors.Add(new Square(neighborPosition, SquareStatus.Empty));
+                    if ((board.Size > shipX + neighbor.Item1
+                        && shipX + neighbor.Item1 >= 0)
+                        && (board.Size > shipY + neighbor.Item2
+                        && shipY + neighbor.Item2 >= 0))
+                    {
+
+                        Tuple<int, int> neighborPosition = new Tuple<int, int>(neighbor.Item1 + shipX, neighbor.Item2 + shipY);
+                        // ma zostaæ dodany je¿eli nie jest fragmentem statku oraz nie znajduje siê ju¿ w ShipNeighbors
+                        //if(!ShipsNeighbors.Contains())
+                        ShipsNeighbors.Add(new Square(neighborPosition, SquareStatus.Empty));
+                    }
                 }
             }
+            
         }
         
         public void PlaceShipOnBoard(Board board, Ship ship)

@@ -6,6 +6,7 @@ namespace OOPBattleship
         private Display display = new();
         private Input input = new();
         private Game game = new();
+        private BoardFactory bf = new();
         public static int FirstPlayerHighscore { get; set; }
         public static int SecondPlayerHighscore { get; set; }
 
@@ -26,7 +27,7 @@ namespace OOPBattleship
                 switch (chosenOption)
                 {
                     case "1":
-                        game.Initialize();
+                        game.Initialize(display, input, bf);
                         break;
                     case "2":
                         display.ShowRules();
