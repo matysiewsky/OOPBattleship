@@ -86,9 +86,9 @@ namespace OOPBattleship
         }
         
         
-        public void DisplayShipPlacementInfo(string shiptype)
+        public void DisplayShipPlacementInfo(string shiptype, int shiplength)
         {
-            Console.WriteLine($"You are placing {shiptype}");
+            Console.WriteLine($"You are placing {shiptype}. Lenght: {shiplength} fields.");
             Console.WriteLine("Press v - for vertical or h - for horizontal");
         }
         
