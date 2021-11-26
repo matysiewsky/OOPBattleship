@@ -95,5 +95,19 @@ namespace OOPBattleship
         {
             Console.WriteLine("Choose first coordinate eg. A1");
         }
+
+
+        public void DisplayBoard(Board board)
+        {
+            for (int i=0; i< board.Size; i++)
+            {
+                for (int j=0; j< board.Size; j++)
+                {
+                    Square square = board.ocean[i,j];
+                    Console.Write(square.GetCharacter());
+                }
+            }
+            Console.WriteLine();
+        }
     }
 }
