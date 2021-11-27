@@ -9,8 +9,8 @@ namespace OOPBattleship
             Carrier = 5,
             Cruiser = 3,
             Battleship = 4,
-            Submarine = 3,
-            Destroyer = 2
+            Submarine = 2,
+            Destroyer = 1
         }
 
     }

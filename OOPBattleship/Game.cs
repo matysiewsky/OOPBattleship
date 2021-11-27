@@ -38,27 +38,31 @@ namespace OOPBattleship
             {
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
-                    
-                    Console.Clear();
-                    display.DisplayBoard(board, placingPhase);
-                    Console.WriteLine();
-                    display.DisplayShipPlacementInfo(shipType.ToString(), (int) shipType);
-
-
-                    string shipDirection = input.ChooseVerticalOrHorizontal();
-                    display.DisplayChoosingCoordinates();
-                    Tuple<int, int> shipStartCoordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
-                    Ship newShip = bf.ManualPlacement(shipStartCoordinates, shipDirection, shipType, board);
-                    bool isPlacementOk = bf.PlacementValidation(newShip, board);
-                    if (isPlacementOk)
+                    bool isPlacementOk = false;
+                    while (!isPlacementOk)
                     {
-                        
-                        bf.PlaceShipOnBoard(board, newShip);
-                        bf.LookForNeighborCells(board, newShip);
-                       
+                        Console.Clear();
+                        display.DisplayBoard(board, placingPhase);
+                        Console.WriteLine();
+                        display.DisplayShipPlacementInfo(shipType.ToString(), (int)shipType);
+
+
+                        string shipDirection = input.ChooseVerticalOrHorizontal();
+                        display.DisplayChoosingCoordinates();
+                        Tuple<int, int> shipStartCoordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
+                        Ship newShip = bf.ManualPlacement(shipStartCoordinates, shipDirection, shipType, board);
+                        isPlacementOk = bf.PlacementValidation(newShip, board);
+                        if (isPlacementOk)
+                        {
+
+                            bf.PlaceShipOnBoard(board, newShip);
+                            bf.LookForNeighborCells(board, newShip);
+
+                        }
+                        Console.Clear();
+                        display.DisplayBoard(board, placingPhase);
                     }
-                    Console.Clear();
-                    display.DisplayBoard(board, placingPhase);
+                    
 
                 }
                 
