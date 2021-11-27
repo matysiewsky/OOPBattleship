@@ -145,5 +145,25 @@ If you chose horizontal, then from the first coordinate to the right of the boar
             }
             
         }
+
+        public void NewLine()
+        {
+            Console.WriteLine();
+        }
+
+        public void ClearScreen()
+        {
+            Console.Clear();
+        }
+
+        public void StartPlacingInfo()
+        {
+            Console.WriteLine("PLACING PHASE");
+        }
+
+        public void EndPlacingInfo()
+        {
+            Console.WriteLine("PLACING COMPLETED. PRESS ANY KEY TO CONTINUE.");
+        }
     }
 }

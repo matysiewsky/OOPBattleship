@@ -79,5 +79,9 @@ namespace OOPBattleship
             }
         }
         
+        public void PressAnyKey()
+        {
+            Console.ReadLine();
+        }
     }
 }

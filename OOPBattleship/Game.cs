@@ -36,14 +36,15 @@ namespace OOPBattleship
 
             foreach (Board board in boards)
             {
+                display.StartPlacingInfo();
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
                     bool isPlacementOk = false;
                     while (!isPlacementOk)
                     {
-                        Console.Clear();
+                        display.ClearScreen();
                         display.DisplayBoard(board, placingPhase);
-                        Console.WriteLine();
+                        display.NewLine();
                         display.DisplayShipPlacementInfo(shipType.ToString(), (int)shipType);
 
 
@@ -59,20 +60,20 @@ namespace OOPBattleship
                             bf.LookForNeighborCells(board, newShip);
 
                         }
-                        Console.Clear();
+                        display.ClearScreen();
                         display.DisplayBoard(board, placingPhase);
                     }
                     
 
                 }
-                
-                Console.ReadLine();
+                display.EndPlacingInfo();
+                input.PressAnyKey();
             }
 
             Player player1 = new("Player 1", shipsPlayer1);
             Player player2 = new("Player 2", shipsPlayer2);
 
-            Console.ReadLine();
+            input.PressAnyKey();
 
         }
 
