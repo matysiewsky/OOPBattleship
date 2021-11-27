@@ -18,11 +18,20 @@ namespace OOPBattleship
 
         public string GetCharacter() => Status switch
         {
-            SquareStatus.Empty => "🌊",
-            SquareStatus.Ship => "🚢",
-            SquareStatus.Hit => "🎯",
-            SquareStatus.Missed => "⛔",
-            SquareStatus.Neighbor => "🌊"
+            SquareStatus.Empty => " ~ ",
+            SquareStatus.Ship => " S ",
+            SquareStatus.Hit => " X ",
+            SquareStatus.Missed => " M ",
+            SquareStatus.Neighbor => " ~ "
+        };
+
+        public string GetCharacterShootingPhase() => Status switch
+        {
+            SquareStatus.Empty => " ~ ",
+            SquareStatus.Ship => " ~ ",
+            SquareStatus.Hit => " X ",
+            SquareStatus.Missed => " M ",
+            SquareStatus.Neighbor => " ~ "
         };
 
         // public override string ToString() => Status switch

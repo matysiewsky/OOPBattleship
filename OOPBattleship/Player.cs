@@ -6,6 +6,7 @@ namespace OOPBattleship
     public class Player
     {
         public readonly string Name;
+        public Board PlayerBoard;
 
         private List<Ship> Fleet
         {
@@ -25,23 +26,22 @@ namespace OOPBattleship
         {
             get
             {
-                foreach (Ship ship in Fleet)
+                foreach (Square square in PlayerBoard.ocean)
                 {
-                    foreach (Square square in ship.SquaresPosition)
+                    
+                    if (square.Status == SquareStatus.Ship)
                     {
-                        if (square.Status == SquareStatus.Ship)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
+                    
                 }
                 return false;
             }
         }
-        public Player(string playerName, List<Ship> listOfShips)
+        public Player(string playerName, Board board)
         {
             Name = playerName;
-            Fleet = listOfShips;
+            PlayerBoard = board;
         }
 
         public bool ShotHandler(Tuple<int, int> enemysTarget)
@@ -57,6 +57,20 @@ namespace OOPBattleship
                 }
             }
             return false;
+        }
+
+        public bool ShotHandler2(Tuple<int, int> enemysTarget, Board board)
+        {
+            if(board.ocean[enemysTarget.Item1, enemysTarget.Item2].Status == SquareStatus.Ship)
+            {
+                board.ocean[enemysTarget.Item1, enemysTarget.Item2].Status = SquareStatus.Hit;
+                return false;
+            }
+            else
+            {
+                board.ocean[enemysTarget.Item1, enemysTarget.Item2].Status = SquareStatus.Missed;
+                return true;
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ namespace OOPBattleship
 
             foreach (Board board in boards)
             {
-                display.StartPlacingInfo();
+                
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
                     bool isPlacementOk = false;
@@ -58,6 +58,7 @@ namespace OOPBattleship
 
                             bf.PlaceShipOnBoard(board, newShip);
                             bf.LookForNeighborCells(board, newShip);
+                            board.ships.Add(newShip);
 
                         }
                         display.ClearScreen();
@@ -70,24 +71,58 @@ namespace OOPBattleship
                 input.PressAnyKey();
             }
 
-            Player player1 = new("Player 1", shipsPlayer1);
-            Player player2 = new("Player 2", shipsPlayer2);
+            Player player1 = new("Player 1", board1);
+            Player player2 = new("Player 2", board2);
 
+            display.ClearScreen();
+            display.StartShootingInfo();
+            display.PressAnyKey();
             input.PressAnyKey();
+            Round(player1, player2, display, input);
 
         }
 
-        public void Round()
+        public void Round(Player player1, Player player2, Display display, Input input)
         {
-            Player currentMove = player1;
-            while (!player1.IsPlayerAlive || !player2.IsPlayerAlive)
+            do
             {
-                bool player1Turn = true;
-                while (player1Turn is true)
-                {
+                playerMove(player2, display, input, player1.Name);
+                playerMove(player1, display, input, player2.Name);
+                
 
+            } while (player1.IsPlayerAlive && player2.IsPlayerAlive);
+        }
+
+        public void playerMove(Player player, Display display, Input input, string playerName)
+        {
+            bool roundFinished = false;
+            do
+            {
+                
+                display.ClearScreen();
+                display.PlayerInfo(playerName);
+                display.NewLine();
+                display.DisplayBoard(player.PlayerBoard, shootingPhase);
+                display.NewLine();
+                DataManager converter = new DataManager();
+                display.ChoosingCoordinates();
+                Tuple<int, int> coordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
+                bool didPlayerMissed = player.ShotHandler2(coordinates, player.PlayerBoard);
+                display.ClearScreen();
+                if (didPlayerMissed)
+                {
+                    display.DisplayBoard(player.PlayerBoard, shootingPhase);
+                    display.MissedInfo();
+                    input.PressAnyKey();
                 }
-            }
+                else
+                {
+                    display.ShootInfo();
+                    input.PressAnyKey();
+                }
+                roundFinished = didPlayerMissed;
+
+            } while (!roundFinished);
         }
     }
 }
