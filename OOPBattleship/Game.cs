@@ -39,6 +39,7 @@ namespace OOPBattleship
                 
                 foreach (ShipInfo.ShipType shipType in Enum.GetValues(typeof(ShipInfo.ShipType)))
                 {
+                    
                     bool isPlacementOk = false;
                     while (!isPlacementOk)
                     {
@@ -61,6 +62,14 @@ namespace OOPBattleship
                             board.ships.Add(newShip);
 
                         }
+                        else
+                        {
+                            display.WrongPlacement();
+                            display.PressAnyKey();
+                            input.PressAnyKey();
+                        }
+
+                        
                         display.ClearScreen();
                         display.DisplayBoard(board, placingPhase);
                     }
@@ -68,11 +77,12 @@ namespace OOPBattleship
 
                 }
                 display.EndPlacingInfo();
+                display.PressAnyKey();
                 input.PressAnyKey();
             }
 
-            Player player1 = new("Player 1", board1);
-            Player player2 = new("Player 2", board2);
+            Player player1 = new("Player 1", board1, 0);
+            Player player2 = new("Player 2", board2, 0);
 
             display.ClearScreen();
             display.StartShootingInfo();
@@ -84,23 +94,23 @@ namespace OOPBattleship
 
         public void Round(Player player1, Player player2, Display display, Input input)
         {
-            do
+            while (player1.IsPlayerAlive && player2.IsPlayerAlive)
             {
-                playerMove(player2, display, input, player1.Name);
-                playerMove(player1, display, input, player2.Name);
-                
+                playerMove(player2, display, input, player1);
+                playerMove(player1, display, input, player2);
+            };
+            
 
-            } while (player1.IsPlayerAlive && player2.IsPlayerAlive);
         }
 
-        public void playerMove(Player player, Display display, Input input, string playerName)
+        public void playerMove(Player player, Display display, Input input, Player player2)
         {
             bool roundFinished = false;
-            do
+            while (!roundFinished)
             {
                 
                 display.ClearScreen();
-                display.PlayerInfo(playerName);
+                display.PlayerInfo(player2.Name);
                 display.NewLine();
                 display.DisplayBoard(player.PlayerBoard, shootingPhase);
                 display.NewLine();
@@ -109,20 +119,47 @@ namespace OOPBattleship
                 Tuple<int, int> coordinates = converter.ConvertShipCoordinates(input.GetShipPosition());
                 bool didPlayerMissed = player.ShotHandler2(coordinates, player.PlayerBoard);
                 display.ClearScreen();
+                roundFinished = didPlayerMissed;
                 if (didPlayerMissed)
                 {
                     display.DisplayBoard(player.PlayerBoard, shootingPhase);
                     display.MissedInfo();
+                    display.PressAnyKey();
                     input.PressAnyKey();
                 }
                 else
                 {
                     display.ShootInfo();
+                    display.PressAnyKey();
                     input.PressAnyKey();
+                    if (!player.IsPlayerAlive)
+                    {
+                        Console.Clear();
+                        player2.Highscore++;
+                        Battleship.SecondPlayerHighscore++;
+                        display.EndGame(player2.Name);
+                        input.PressAnyKey();
+                        display.ShowMenu();
+                        break;
+                    }
+                    else if (!player2.IsPlayerAlive)
+                    {
+                        Console.Clear();
+                        player2.Highscore++;
+                        Battleship.FirstPlayerHighscore++;
+                        display.EndGame(player2.Name);
+                        input.PressAnyKey();
+                        display.ShowMenu();
+                        break;
+                    }
                 }
-                roundFinished = didPlayerMissed;
+                
+                
 
-            } while (!roundFinished);
+            }
+
+            
+            
         }
     }
 }

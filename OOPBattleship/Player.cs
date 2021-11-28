@@ -7,6 +7,7 @@ namespace OOPBattleship
     {
         public readonly string Name;
         public Board PlayerBoard;
+        public int Highscore;
 
         private List<Ship> Fleet
         {
@@ -38,10 +39,11 @@ namespace OOPBattleship
                 return false;
             }
         }
-        public Player(string playerName, Board board)
+        public Player(string playerName, Board board, int highscore)
         {
             Name = playerName;
             PlayerBoard = board;
+            Highscore = highscore;
         }
 
         public bool ShotHandler(Tuple<int, int> enemysTarget)

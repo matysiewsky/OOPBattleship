@@ -192,5 +192,15 @@ If you chose horizontal, then from the first coordinate to the right of the boar
         {
             Console.WriteLine("SHOOT!");
         }
+
+        public void WrongPlacement()
+        {
+            Console.WriteLine("SHIPS CANNOT BE NEXT TO EACH OTHER.");
+        }
+
+        public void EndGame(string playername)
+        {
+            Console.WriteLine($"{playername} Won. Highscore + 1.");
+        }
     }
 }
