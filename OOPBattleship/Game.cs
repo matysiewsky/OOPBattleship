@@ -136,17 +136,14 @@ namespace OOPBattleship
                     {
                         Console.Clear();
                         player2.Highscore++;
-                        Battleship.SecondPlayerHighscore++;
-                        display.EndGame(player2.Name);
-                        input.PressAnyKey();
-                        display.ShowMenu();
-                        break;
-                    }
-                    else if (!player2.IsPlayerAlive)
-                    {
-                        Console.Clear();
-                        player2.Highscore++;
-                        Battleship.FirstPlayerHighscore++;
+                        if (player == this.player2)
+                        {
+                            Battleship.SecondPlayerHighscore++;
+                        }
+                        else
+                        {
+                            Battleship.FirstPlayerHighscore++;
+                        }
                         display.EndGame(player2.Name);
                         input.PressAnyKey();
                         display.ShowMenu();
